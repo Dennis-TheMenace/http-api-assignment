@@ -5,6 +5,87 @@
   <link rel="stylesheet" type="text/css" href="/style.css">
   
   <script>
+    const handleResponse = (response) => {
+      response.text().then((resText) =>
+      {
+        const contentType = response.headers.get('Content-Type');
+        const content = document.getElementById('content');
+
+        switch(response.status)
+        {
+          case 200:
+            content.innerHTML = '<b>Success</b>';
+            break;
+          case 400:
+            content.innerHTML = '<b>Bad Request</b>';
+            break;
+          case 401:
+            content.innerHTML = '<b>Unauthorized</b>';
+            break;
+          case 403:
+            content.innerHTML = '<b>Forbidden</b>';
+            break;
+          case 404:
+            content.innerHTML = '<b>Not Found</b>';
+            break;
+          case 500:
+            content.innerHTML = '<b>Internal Server Error</b>';
+            break;
+          case 501:
+            content.innerHTML = '<b>Not Implemented</b>';
+            break;
+          default:
+            content.innerHTML = '<p>Status Code Not Implemented By Client</p>';
+            break;
+        }
+
+        if(contentType === 'text/xml')
+        {
+          let parsedResponse = new window.DOMParser().parseFromString(resText, 'text/html');
+          content.innerHTML += `<p>${parsedResponse.querySelector('message'.textContent)}</p>`;
+        }
+        else
+        {
+          let parsedResponse = JSON.parse(resText);
+          content.innerHTML += `<p>${parsedResponse.message}</p>`
+        }
+      });
+    }
+
+    const requestUpdate = () =>
+    {
+      const url = document.getElementById('page').value;
+      const type = document.getElementById('type').value;
+      const options = 
+      {
+        method: 'GET',
+        headers:
+        {
+          'Accept': type
+        },
+      };
+
+      let fetchPromise = fetch(url,options);
+      fetchPromise.then((response) =>
+      {
+        handleResponse(response);
+      });
+    }
+
+    const init = () => {
+      const top = document.getElementById('top');
+      const bttn = document.getElementById('send');
+
+      const temp = (e) =>
+      {
+        requestUpdate();
+        return false;
+      }
+
+      bttn.addEventListener('click', temp);
+    };
+
+    window.onload = init;
 
   </script>
 </head>
