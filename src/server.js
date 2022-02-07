@@ -28,7 +28,7 @@ const onRequest = (request, response) => {
   if (urlStruct[parsedUrl.pathname]) {
     urlStruct[parsedUrl.pathname](request, response, params, acceptedTypes);
   } else {
-    urlStruct.notImplemented(request, response, params);
+    urlStruct.notImplemented(request, response, params, acceptedTypes);
   }
 };
 

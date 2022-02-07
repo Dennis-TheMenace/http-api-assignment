@@ -19,7 +19,7 @@ const getCSS = (request, response) => {
 
 // Status codes
 // 200
-const success = (request, response, acceptedTypes) => {
+const success = (request, response, params, acceptedTypes) => {
   const responseObj = {
     message: 'This is a successful response',
   };
@@ -107,7 +107,7 @@ const unauthorized = (request, response, params, acceptedTypes) => {
 };
 
 // 403
-const forbidden = (request, response, acceptedTypes) => {
+const forbidden = (request, response, params, acceptedTypes) => {
   const responseObj = {
     message: 'You do not have access to this content',
     id: 'forbidden',
@@ -127,7 +127,7 @@ const forbidden = (request, response, acceptedTypes) => {
 };
 
 // 404
-const notFound = (request, response, acceptedTypes) => {
+const notFound = (request, response, params, acceptedTypes) => {
   const responseObj = {
     message: 'The page you are looking for was not found.',
     id: 'notFound',
@@ -147,7 +147,7 @@ const notFound = (request, response, acceptedTypes) => {
 };
 
 // 500
-const internal = (request, response, acceptedTypes) => {
+const internal = (request, response, parmas, acceptedTypes) => {
   const responseObj = {
     message: 'Internal Server Error.  Something went wrong.',
     id: 'internalError',
@@ -167,7 +167,7 @@ const internal = (request, response, acceptedTypes) => {
 };
 
 // 501
-const notImplemented = (request, response, acceptedTypes) => {
+const notImplemented = (request, response, params, acceptedTypes) => {
   const responseObj = {
     message: 'A get request for this page has not been implemented yet.  Check again later for updated content.',
     id: 'notImplemented',

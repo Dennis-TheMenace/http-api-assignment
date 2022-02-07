@@ -41,8 +41,10 @@
 
         if(contentType === 'text/xml')
         {
+          console.log(resText);
           let parsedResponse = new window.DOMParser().parseFromString(resText, 'text/html');
-          content.innerHTML += `<p>${parsedResponse.querySelector('message'.textContent)}</p>`;
+          content.innerHTML += `<p>${parsedResponse.querySelector('message').textContent}</p>`;
+          console.log(parsedResponse);
         }
         else
         {
@@ -61,6 +63,7 @@
         method: 'GET',
         headers:
         {
+          'Content-Type': type,
           'Accept': type
         },
       };
@@ -70,10 +73,10 @@
       {
         handleResponse(response);
       });
-    }
+    };
 
     const init = () => {
-      const top = document.getElementById('top');
+      //const top = document.getElementById('top');
       const bttn = document.getElementById('send');
 
       const temp = (e) =>
